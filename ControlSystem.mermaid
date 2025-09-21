@@ -1,0 +1,46 @@
+flowchart TD
+    subgraph Human
+        Brain[Brain Activity]
+    end
+    
+    subgraph "EEG Hardware"
+        EEGDevice[EEG Device]
+    end
+    
+    subgraph "Computer Software"
+        EEGProcessor[EEG Signal Processor]
+        PatternRecognizer[Neural Pattern Recognizer]
+        CommandMapper[Control Command Mapper]
+        RCInterface[RC Communication Interface]
+    end
+    
+    subgraph "RC Hardware"
+        Arduino[Arduino Controller]
+        Motors[Motors/Servos]
+        subgraph "RC Device"
+            Car[RC Car]
+            Drone[Drone]
+            Rocket[Rocket]
+        end
+    end
+    
+    Brain -->|Neural activity| EEGDevice
+    EEGDevice -->|Raw EEG data| EEGProcessor
+    EEGProcessor -->|Processed signals| PatternRecognizer
+    PatternRecognizer -->|Neural patterns| CommandMapper
+    CommandMapper -->|Control commands| RCInterface
+    RCInterface -->|Serial commands| Arduino
+    Arduino -->|PWM signals| Motors
+    Motors -->|Movement| Car
+    Motors -->|Movement| Drone
+    Motors -->|Movement| Rocket
+    
+    classDef human fill:#f9d5e5,stroke:#333,stroke-width:2px;
+    classDef hardware fill:#eeeeee,stroke:#333,stroke-width:2px;
+    classDef software fill:#d5e8f9,stroke:#333,stroke-width:2px;
+    classDef rcdevice fill:#e2f0cb,stroke:#333,stroke-width:2px;
+    
+    class Brain human;
+    class EEGDevice,Arduino,Motors hardware;
+    class EEGProcessor,PatternRecognizer,CommandMapper,RCInterface software;
+    class Car,Drone,Rocket rcdevice;
